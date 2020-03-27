@@ -1,0 +1,22 @@
+{
+  "name": "express-invitation",
+  "version": "1.0.0",
+  "description": "app to send form to sever and get back html",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hjc86/express-invitation.git"
+  },
+  "author": "HJC and Rosie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hjc86/express-invitation/issues"
+  },
+  "homepage": "https://github.com/hjc86/express-invitation#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
