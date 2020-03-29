@@ -64,7 +64,7 @@
 </head>
     <body>
         <main>
-            <form class="remove" id="myForm"> <!--</form> method="POST"  target="_self" action="/invitation-request"> -->
+            <form class="remove" id="myForm"></form>
                 <select id="greeting" name="greeting">
                     <option value="Hello" name="greeting">Hello</option>
                     <option value="Dear" name="greeting">Dear</option>
@@ -107,54 +107,14 @@
     
 
         <script>
-            $(document).on({
-                ajaxStart: function(){
-                    $("form.remove").css("display","none");
-                    $("div.loading").css("display","block");
-                    console.log("loading...");
-                },
-                ajaxStop: function(){
-                    $("body").css("display","flex");
-                   
-                    console.log("invite complete");
-                }   
-            });
+            document.getElementById("myForm").addEventListener('submit',loadText);
+            evt.preventDefault();
             
-            const $form = $('#myForm');
-            $form.on('submit', submitHandler);
-            
+            function loadText(){
+                console.log('submit clicked');
+            };
 
-            function submitHandler (e){
-                e.preventDefault();
-                $.ajax({
-                    url: '/invitation-request',
-                    type:'POST',
-                    data: $form.serialize()     
-                })
-                .done(response =>{
-                    $(".invite").replaceWith(response);
-                    let $images = $('.invite img') 
-                    console.log("image variable",$images);
-                    let preloaded = 0
-                    let total = $images.length;
-                    console.log("total images", total)
-                    
-                    $images.on('load', function(){
-                        if(++preloaded === total) {
-                            console.log("preloaded", preloaded);
-                            $("div.loading").css("display","none");
-                            $(".invite").css("display","flex")
-                        }
-                        else{
-                            console.log("somethinh went wrong");
-                        }
-                    });
-                    
-                })
-                    
-            }
-            
-  
+     
         
         </script>
             
