@@ -10,26 +10,19 @@ const PORT = process.env.PORT || 4001;
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('public'));
 app.use(express.static('views'));
-app.use(formidable());
+// app.use(formidable());
 
 app.set('view engine', 'pug');
 
 app.get("/", (req, res, next) => { 
-        res.sendFile(path.join(__dirname+'/views/form-1.html'));
+        res.sendFile(path.join(__dirname+'/views/form.html'));
 });
 
     
 app.post("/invitation-request", (req,res,next)=> {
 
-    // console.log(req.body);
-    console.log(req.fields)
-    // console.log(req.params);
-
-    //let greeting = req.body.greeting;
-    let greeting = req.fields.greeting;
-    let event = req.fields.event;
-    
-    //let event = req.body.event;
+    let greeting = req.body.greeting;
+    let event = req.body.event;
     let text = req.body.text;
 
     console.log(greeting, event, text)
@@ -46,13 +39,13 @@ app.post("/invitation-request", (req,res,next)=> {
             let _header = result.headers;
             let unsplashUrl=_header['location'];
             console.log(unsplashUrl);
-            setTimeout(() => {resolve(unsplashUrl)}, 5000);
+            setTimeout(() => {resolve(unsplashUrl)}, 1000);
         });
         HTTPreq.end()
     })
 
     imageSplashUrl.then((result)=>{
-        res.render('invitation-1', { greeting: greeting, message: text, eventImage: result})
+        res.render('invitation', { greeting: greeting, message: text, eventImage: result})
     })
 
     // imageSplashUrl.then((result)=>{
