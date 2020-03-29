@@ -18,15 +18,19 @@
             align-items: center;
             justify-content: center;
          }
-
+/* 
         form{
             background-color: peachpuff;
         }
 
         form.remove{
             display: flex;
-        }
+        } */
 
+        /* div.loading{
+            display: none;
+        } */
+        
         div.loading{
             display: none;
         }
@@ -55,16 +59,16 @@
 
     </style>
 
-    <script
+    <!-- <script
         src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
         crossorigin="anonymous">
-    </script>
+    </script> -->
 
 </head>
     <body>
         <main>
-            <form class="remove" id="myForm"></form>
+            <form class="remove" id="myForm" name="myForm">
                 <select id="greeting" name="greeting">
                     <option value="Hello" name="greeting">Hello</option>
                     <option value="Dear" name="greeting">Dear</option>
@@ -91,7 +95,7 @@
                 
             </form>
     
-            <div class="loading">
+            <div id="loading" class="loading">
                 <h2>
                     INVITE IS LOADING....              
                 </h2>
@@ -99,22 +103,87 @@
 
             </div>
 
-            <div class="invite">
-          
+            <div id="invite" class="invite">
+                <h1>
+
+                </h1>
+
+                <p>
+
+                </p>
+               
+                <img>
+
             </div>
     
         </main>
     
 
         <script>
-            document.getElementById("myForm").addEventListener('submit',loadText);
-            evt.preventDefault();
-            
-            function loadText(){
-                console.log('submit clicked');
-            };
+            document.querySelector('form').addEventListener('submit', event => {
+                event.preventDefault();
+                
+                var xhr = new XMLHttpRequest();
+                let formData = new FormData();
 
-     
+                formData.append("event","christmas");
+                formData.append("msg","it is christmas");
+                formData.append("greeting","Hello");
+                
+                xhr.open('POST', "/invitation-request", true)
+
+                if(xhr.readyState==1){
+                        document.getElementById('myForm').style.display= "none";
+                        document.getElementById('loading').style.display = "flex";
+                }
+
+                xhr.onprogress = function(){
+                    console.log("in progress")
+                }
+
+                xhr.onreadystatechange = function(){
+                    console.log("state: ", this.readyState);
+                
+                    if(this.readyState == 4){
+                        document.getElementById('loading').style.display = "none";
+                        document.getElementById('invite').innerHTML= this.responseText;
+                        //let eventImage = document.getElementsByTagName("img")
+            
+                    }
+                }
+
+                xhr.send(formData);
+                let eventImage = document.getElementsByTagName("img")
+                console.log(eventImage);
+                console.log(eventImage.item(0).complete);
+          
+            })
+
+        
+            
+            
+            // let preloaded=0;
+            // let eventImage = document.getElementsByTagName("img").complete;
+
+            // console.log(eventImage)
+            // // let total= eventImage.length
+            // console.log(preloaded);
+            // console.log(total)
+            
+            //  eventImage.onload() = function(){
+            //             nowLoaded = eventImage.length;
+            //             console.log(nowLoaded);
+            //             if(++preloaded === total) {
+            //                 console.log("preloaded", preloaded);
+            //                 document.getElementById('invite').style.display="flex";
+            //             }
+            //             else{
+            //                 console.log("somethinh went wrong");
+            //             }
+            // }  
+
+
+
         
         </script>
             
