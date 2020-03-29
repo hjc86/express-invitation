@@ -52,7 +52,6 @@
             display: none;
         }
 
-
     </style>
 
     <script
@@ -115,7 +114,6 @@
                 },
                 ajaxStop: function(){
                     $("body").css("display","flex");
-                   
                     console.log("invite complete");
                 }   
             });
@@ -133,8 +131,9 @@
                 })
                 .done(response =>{
                     $(".invite").replaceWith(response);
-                    let $images = $('.invite img') 
-                    console.log("image variable",$images);
+                    let $images = $('.invite img');
+                    console.log("image variable", $images);
+                    
                     let preloaded = 0
                     let total = $images.length;
                     console.log("total images", total)
