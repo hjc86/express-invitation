@@ -15,22 +15,20 @@ app.get("/form", (req, res, next) => {
 });
 
 app.post("/invitation-request", (req,res,next)=> {
-    
-    
+
     console.log(req.body);
     res.send(req.body);
-    // let greeting = req.body.greeting;
-    // let event = req.body.event;
-    // let text = req.body.text;
+    let greeting = req.body.greeting;
+    let event = req.body.event;
+    let text = req.body.text;
     
-    // let unsplash = `https://source.unsplash.com/500x500/?${event}`;
+    let unsplash = `https://source.unsplash.com/500x500/?${event}`;
 
-    // res.send(`<h1> ${greeting}   </h1> 
-    //            <img src=${unsplash}>         
+    res.send(`<h1> ${greeting}   </h1> 
+               <img src=${unsplash}>         
+                `);
 
-    //             `);
-
-    // res.sendfile(path.join(__dirname+'/views/invitation.html'));
+    res.sendfile(path.join(__dirname+'/views/invitation.html'));
     
 });
     
