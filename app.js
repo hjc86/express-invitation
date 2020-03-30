@@ -51,6 +51,12 @@ app.post("/invitation-request", (req,res,next)=> {
         res.render('invitation-1', { greeting: greeting, message: text, eventImage: result})
     })
 
+    // let inviteImg1= new Image();
+    
+    // inviteImg.src='source.unsplash.com/5000x5000/?$water'
+
+    // console.log(inviteImg)
+
 });
 
 app.listen(PORT, () => {

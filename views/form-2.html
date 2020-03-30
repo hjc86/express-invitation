@@ -123,8 +123,9 @@
                 <p>
 
                 </p>
-               
-                <img>
+
+                <img src="" id="image-invite">
+  
 
             </div>
 
@@ -136,6 +137,7 @@
     
 
         <script>
+
             document.querySelector('form').addEventListener('submit', event => {
                 event.preventDefault();
                 
@@ -159,33 +161,40 @@
                 }
 
                 xhr.onreadystatechange = function(){
-                    console.log("state: ", this.readyState);
-                
+
+                    var img = document.getElementById("image-invite")
+                    // console.log(img.complete, img.src)
+                    // console.log("state: ", this.readyState);
+ 
                     if(this.readyState == 4){
                         document.getElementById('loading').style.display = "none";
-                        document.getElementById('invite').innerHTML= this.responseText;        
+                        document.getElementById('invite').innerHTML= this.responseText; 
+                        document.getElementById('invite').style.display="flex";       
                     }
+
                 }
 
-                window.addEventListener("load", function(){
-                    
-                    const loader =document.querySelector(".loader");
-                    document.querySelector(".loader").style.display="none";
-                    loader.className += " hidden";
-                })
-                    
-
+        
                 xhr.send(formData);
+
+                window.onload= ()=>{
+                console.log("loaded")}
+                ;
+
+           
+
+                // document.getElementById('invite').style.display="flex";
+
                 
-                document.getElementById('invite').style.display="flex";
-                // let eventImage = document.getElementsByTagName("img")
-                // console.log(eventImage);
-                // console.log(eventImage.item(0).complete);
-          
             })
 
-        
-            
+           
+            document.getElementById("image-invite").addEventListener('onload', function(){
+                    // event.preventDefault();
+                    
+                    console.log("page is fully loaded")
+      
+                })
             
             // let preloaded=0;
             // let eventImage = document.getElementsByTagName("img").complete;
@@ -206,7 +215,7 @@
             //                 console.log("somethinh went wrong");
             //             }
             // }  
-
+       
 
 
         
