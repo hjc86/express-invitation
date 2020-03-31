@@ -10,22 +10,31 @@ const PORT = process.env.PORT || 4001;
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('public'));
 app.use(express.static('views'));
-// app.use(formidable());
+app.use(formidable());
 
 app.set('view engine', 'pug');
 
 app.get("/", (req, res, next) => { 
-        res.sendFile(path.join(__dirname+'/views/form.html'));
+        res.sendFile(path.join(__dirname+'/views/form-1.html'));
 });
 
     
 app.post("/invitation-request", (req,res,next)=> {
 
-    let greeting = req.body.greeting;
-    let event = req.body.event;
-    let text = req.body.text;
+    //req.
 
-    console.log(greeting, event, text)
+    // let greeting = req.body.greeting;
+    // let event = req.body.event;
+    // let text = req.body.text;
+
+    let greeting = req.fields.greeting
+    let event = req.fields.event;
+    let text = req.fields.text;
+
+
+    console.log("recieved", greeting, event, text)
+    // console.log("recieved1 ", req.fields.greeting);
+
 
     const options = {
         hostname: 'source.unsplash.com',
@@ -45,7 +54,7 @@ app.post("/invitation-request", (req,res,next)=> {
     })
 
     imageSplashUrl.then((result)=>{
-        res.render('invitation', { greeting: greeting, message: text, eventImage: result})
+        res.render('invitation-1', { greeting: greeting, message: text, eventImage: result})
     })
 
     // imageSplashUrl.then((result)=>{

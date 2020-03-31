@@ -56,14 +56,20 @@
             display: none;
         }
 
+        img{
+            max-width: 500px;
+
+        }
+
+        
 
     </style>
 
-    <!-- <script
+    <script
         src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
         crossorigin="anonymous">
-    </script> -->
+    </script>
 
 </head>
     <body>
@@ -76,7 +82,7 @@
                 </select>
                 <br>
                 
-                <textarea id="w3mission" rows="4" cols="50" name="text">
+                <textarea id="text" rows="4" cols="50" name="text">
                     "write your message here"
                 </textarea>
     
@@ -104,15 +110,6 @@
             </div>
 
             <div id="invite" class="invite">
-                <h1>
-
-                </h1>
-
-                <p>
-
-                </p>
-               
-                <img>
 
             </div>
     
@@ -120,16 +117,17 @@
     
 
         <script>
+            
             document.querySelector('form').addEventListener('submit', event => {
                 event.preventDefault();
                 
                 var xhr = new XMLHttpRequest();
                 let formData = new FormData();
-
-                formData.append("event","christmas");
-                formData.append("msg","it is christmas");
-                formData.append("greeting","Hello");
-                
+        
+                formData.append("greeting",$("#greeting").val());
+                formData.append("text",$("#text").val());
+                formData.append("event",$("input[name='event']:checked").val());
+        
                 xhr.open('POST', "/invitation-request", true)
 
                 if(xhr.readyState==1){
@@ -137,54 +135,53 @@
                         document.getElementById('loading').style.display = "flex";
                 }
 
-                xhr.onprogress = function(){
-                    console.log("in progress")
-                }
 
                 xhr.onreadystatechange = function(){
                     console.log("state: ", this.readyState);
-                
+                    
                     if(this.readyState == 4){
-                        document.getElementById('loading').style.display = "none";
-                        document.getElementById('invite').innerHTML= this.responseText;
-                        //let eventImage = document.getElementsByTagName("img")
-            
+                       
+                                      
+                        document.querySelector('.invite').innerHTML=this.responseText;
+                        
+                        let images = document.getElementsByTagName('img');
+                    
+                        
+                        let preloaded = 0
+                        total =images.length
+                        
+                       
+                        let a=document.querySelector("img") //.addEventListener('load',myFunction);
+                        let b=document.getElementsByClassName("invite-image").item(0)//.addEventListener('load',myFunction)
+                        
+                        console.log("a",a,"b",b)
+                        b.addEventListener('load',myFunction)
+                        
+                        function myFunction(event){
+                            if(++preloaded === total) {
+                                document.getElementById('loading').style.display = "none";  
+                                console.log("preloaded", preloaded);
+                                document.getElementById("loading").style.display='none';
+                                document.getElementById("invite").style.display='flex';
+                                console.log("kjasnnaakns")
+                            }
+                            else{
+                                console.log("somethinh went wrong");
+                            }   
+                        };
+                    
                     }
                 }
 
                 xhr.send(formData);
-                let eventImage = document.getElementsByTagName("img")
-                console.log(eventImage);
-                console.log(eventImage.item(0).complete);
+
+                console.log(xhr.DONE)
+    
           
             })
-
-        
             
-            
-            let preloaded=0;
-            let eventImage = document.getElementsByTagName("img").complete;
 
-            console.log(eventImage)
-            // let total= eventImage.length
-            console.log(preloaded);
-            console.log(total)
-            
-             eventImage.onload() = function(){
-                        nowLoaded = eventImage.length;
-                        console.log(nowLoaded);
-                        if(++preloaded === total) {
-                            console.log("preloaded", preloaded);
-                            document.getElementById('invite').style.display="flex";
-                        }
-                        else{
-                            console.log("somethinh went wrong");
-                        }
-            }  
-
-
-
-        
+          
         </script>
             
     </body>
